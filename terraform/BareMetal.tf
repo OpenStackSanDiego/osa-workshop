@@ -28,14 +28,20 @@ resource "packet_device" "compute" {
   }
 
   provisioner "file" {
+    source      = "bridge-setup.sh"
+    destination = "bridge-setup.sh"
+  }
+
+  provisioner "file" {
     source      = "${var.operating_system}.sh"
     destination = "os-setup.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash os-setup.sh > os-setup.out",
       "bash hardware-setup.sh > hardware-setup.out",
+      "bash bridge-setup.sh > bridge-setup.out",
+      "bash os-setup.sh > os-setup.out",
       "reboot &"
     ]
   }
@@ -71,6 +77,11 @@ resource "packet_device" "control" {
   }
 
   provisioner "file" {
+    source      = "bridge-setup.sh"
+    destination = "bridge-setup.sh"
+  }
+
+  provisioner "file" {
     source      = "${var.operating_system}.sh"
     destination = "os-setup.sh"
   }
@@ -88,8 +99,9 @@ resource "packet_device" "control" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash os-setup.sh > os-setup.out",
       "bash hardware-setup.sh > hardware-setup.out",
+      "bash bridge-setup.sh > bridge-setup.out",
+      "bash os-setup.sh > os-setup.out",
       "bash deployment_host.sh > deployment_host.out",
       "reboot &"
     ]
