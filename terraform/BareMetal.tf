@@ -47,7 +47,7 @@ resource "packet_device" "control" {
   hostname         = "${format("control-%02d", count.index)}"
   operating_system = "${var.operating_system}"
   plan             = "${var.control_type}"
-  tags             = ["openstack-${random_id.cloud.hex}"]
+  tags             = ["openstack-${random_id.cloud.hex}","${var.terraform_username}"]
 
   connection {
     user = "root"
