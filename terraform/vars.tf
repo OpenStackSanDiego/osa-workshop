@@ -10,13 +10,13 @@ variable "packet_auth_token" {
 }
 
 variable "packet_facility" {
-  description = "Packet facility. Default: dfw2"
-  default = "dfw2"
+  description = "Packet facility. Default: ewr1"
+  default = "ewr1"
 }
 
 variable "compute_type" {
   description = "Instance type of OpenStack compute nodes"
-  default = "c2.medium.x86"
+  default = "c1.small.x86"
 }
 
 variable "compute_count" {
@@ -26,7 +26,7 @@ variable "compute_count" {
 
 variable "control_type" {
   description = "Instance type of OpenStack control nodes"
-  default = "c2.medium.x86"
+  default = "c1.small.x86"
 }
 
 variable "control_count" {
