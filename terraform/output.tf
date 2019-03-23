@@ -10,14 +10,22 @@ output "Control IPs" {
   value = "${packet_device.control.*.access_public_ipv4}"
 }
 
-output "OSA Configuration File" {
-  value = "${var.openstack_user_config_file}"
+#output "OSA Configuration File" {
+#  value = "${var.openstack_user_config_file}"
+#}
+#
+#output "Precreated IP Block" {
+#  value = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
+#}
+#
+#output "Private IP Block" {
+#  value = "${packet_ip_attachment.container_ip_block.cidr_notation}"
+#}
+
+output "br-mgmt control IP" {
+  value = "${packet_reserved_ip_block.br-mgmt-control.*.cidr_notation}"
 }
 
-output "Precreated IP Block" {
-  value = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
-}
-
-output "Private IP Block" {
-  value = "${packet_ip_attachment.container_ip_block.cidr_notation}"
+output "br-mgmt compute IP" {
+  value = "${packet_reserved_ip_block.br-mgmt-compute.*.cidr_notation}"
 }
