@@ -39,6 +39,7 @@ resource "packet_device" "compute" {
 
   provisioner "remote-exec" {
     inline = [
+      "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
       "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
@@ -99,6 +100,7 @@ resource "packet_device" "control" {
 
   provisioner "remote-exec" {
     inline = [
+      "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
       "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
