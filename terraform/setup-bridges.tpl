@@ -16,15 +16,12 @@ PUBLIC_SUBNET=`ip -4 -o addr show dev bond0 | grep $PUBLIC_IP | cut -d ' ' -f 7`
 
 # moves networking from the bond0 interface to the br-mgmt interface
 # be careful, this may disconnect your SSH connection - run as a script not one line at a time
+
 ip addr flush dev bond0
 
 brctl addbr br-mgmt
 brctl addif br-mgmt bond0
 
-ip route del default via $PUBLIC_GATEWAY dev bond0
-ip route del 10.0.0.0/8 via $PRIVATE_GATEWAY dev bond0
-ip addr del $PUBLIC_SUBNET dev bond0
-ip addr del $PRIVATE_IP/31 dev bond0:0
 ip addr add $PUBLIC_SUBNET dev br-mgmt
 ip addr add $PRIVATE_IP/31 dev br-mgmt
 
