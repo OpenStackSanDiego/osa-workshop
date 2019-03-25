@@ -26,6 +26,10 @@ output "br-mgmt control IP" {
   value = "${packet_reserved_ip_block.br-mgmt-control.*.cidr_notation}"
 }
 
-output "br-mgmt compute IP" {
+output "br-mgmt compute IP Network" {
   value = "${packet_reserved_ip_block.br-mgmt-compute.*.cidr_notation}"
+}
+
+output "br-mgmt compute IP" {
+  value = "${cidrhost(packet_reserved_ip_block.br-mgmt-compute.0.cidr_notation,0)}"
 }

@@ -25,5 +25,5 @@
 #    # Bridge port references tagged interface
 #    bridge_ports bond0:0
 #    address
-#    netmask 255.255.252.255
+#    netmask 255.255.255.254
 #EOF
