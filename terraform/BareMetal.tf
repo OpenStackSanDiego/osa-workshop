@@ -20,10 +20,6 @@ resource "packet_device" "compute" {
   # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
   #public_ipv4_subnet_size  = "29"
 
-  connection {
-    private_key = "${file("${var.cloud_ssh_key_path}")}"
-  }
-
   provisioner "file" {
     source      = "${var.operating_system}-${var.compute_type}.sh"
     destination = "hardware-setup.sh"
@@ -64,10 +60,6 @@ resource "packet_device" "control" {
   # /29 or /28 required for bridge
   # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
   #public_ipv4_subnet_size  = "29"
-
-  connection {
-    private_key = "${file("${var.cloud_ssh_key_path}")}"
-  }
 
   provisioner "file" {
     source      = "${var.operating_system}-${var.control_type}.sh"
