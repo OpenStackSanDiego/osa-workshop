@@ -18,7 +18,7 @@ resource "packet_device" "compute" {
 
   # /29 or /28 required for bridge
   # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
-  public_ipv4_subnet_size  = "29"
+  #public_ipv4_subnet_size  = "29"
 
   connection {
     private_key = "${file("${var.cloud_ssh_key_path}")}"
@@ -30,11 +30,6 @@ resource "packet_device" "compute" {
   }
 
   provisioner "file" {
-    source      = "bridge-setup.sh"
-    destination = "bridge-setup.sh"
-  }
-
-  provisioner "file" {
     source      = "${var.operating_system}.sh"
     destination = "os-setup.sh"
   }
@@ -43,7 +38,7 @@ resource "packet_device" "compute" {
     inline = [
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
-      "bash bridge-setup.sh > bridge-setup.out",
+#      "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
       "reboot &"
     ]
@@ -69,7 +64,7 @@ resource "packet_device" "control" {
 
   # /29 or /28 required for bridge
   # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
-  public_ipv4_subnet_size  = "29"
+  #public_ipv4_subnet_size  = "29"
 
   connection {
     private_key = "${file("${var.cloud_ssh_key_path}")}"
@@ -78,11 +73,6 @@ resource "packet_device" "control" {
   provisioner "file" {
     source      = "${var.operating_system}-${var.control_type}.sh"
     destination = "hardware-setup.sh"
-  }
-
-  provisioner "file" {
-    source      = "bridge-setup.sh"
-    destination = "bridge-setup.sh"
   }
 
   provisioner "file" {
@@ -105,7 +95,7 @@ resource "packet_device" "control" {
     inline = [
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
-      "bash bridge-setup.sh > bridge-setup.out",
+#      "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
       "bash deployment_host.sh > deployment_host.out",
       "reboot &"

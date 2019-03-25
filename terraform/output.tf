@@ -14,22 +14,14 @@ output "Control IPs" {
 #  value = "${var.openstack_user_config_file}"
 #}
 #
-#output "Precreated IP Block" {
-#  value = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
-#}
-#
-#output "Private IP Block" {
-#  value = "${packet_ip_attachment.container_ip_block.cidr_notation}"
-#}
-
-output "br-mgmt control IP" {
-  value = "${packet_reserved_ip_block.br-mgmt-control.*.cidr_notation}"
+output "Private IP Block for Project" {
+  value = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
 }
 
-output "br-mgmt compute IP Network" {
-  value = "${packet_reserved_ip_block.br-mgmt-compute.*.cidr_notation}"
+output "Private IP Block for Control 0" {
+  value = "${packet_ip_attachment.control_ip_block_0.cidr_notation}"
 }
 
-output "br-mgmt compute IP" {
-  value = "${cidrhost(packet_reserved_ip_block.br-mgmt-compute.0.cidr_notation,0)}"
+output "Private IP Block for Compute 0" {
+  value = "${packet_ip_attachment.compute_ip_block_0.cidr_notation}"
 }
