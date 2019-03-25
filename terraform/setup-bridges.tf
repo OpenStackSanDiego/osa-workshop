@@ -8,7 +8,7 @@ data "template_file" "setup-bridges-control" {
     # private subnet assigned to this host
     #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.control_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single control node right now
-    add-private-ips-command = "ip addr add $packet_ip_attachment.control_ip_block.0.cidr_notation) dev br-mgmt}"
+    add-private-ips-command = "ip addr add ${packet_ip_attachment.control_ip_block_0.cidr_notation} dev br-mgmt"
   }
 }
 
@@ -22,7 +22,7 @@ data "template_file" "setup-bridges-compute" {
     # private subnet assigned to this host
     #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.compute_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single compute node right now
-    add-private-ips-command = "ip addr add $packet_ip_attachment.compute_ip_block.0.cidr_notation) dev br-mgmt}"
+    add-private-ips-command = "ip addr add ${packet_ip_attachment.compute_ip_block_0.cidr_notation} dev br-mgmt"
   }
 }
 
