@@ -16,6 +16,8 @@ global_overrides:
   #
   tunnel_bridge: "br-mgmt"
   management_bridge: "br-mgmt"
+  internal_lb_vip_address: ${first_control_private_ip}
+  external_lb_vip_address: ${first_control_public_ip}
   provider_networks:
     - network:
         container_bridge: "br-mgmt"

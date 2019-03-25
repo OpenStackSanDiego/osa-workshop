@@ -45,6 +45,10 @@
 #    control_public_ips = "${join(",",packet_device.control.*.access_public_ipv4)}"
 #    compute_public_ips = "${join(",",packet_device.compute.*.access_public_ipv4)}"
 #
+#    # NOTE(curtis): This is for setting internal and external lb in OSA user config
+#    first_control_public_ip = "${element(packet_device.control.*.access_public_ipv4, 1)}"
+#    first_control_private_ip = "${element(packet_device.control.*.access_private_ipv4, 1)}"
+#
 #    control_private_ip = "${packet_device.control.0.access_private_ipv4}"
 #    private_cidr = "${lookup(packet_device.control.0.network[2], "cidr")}"
 #    private_gw   = "${lookup(packet_device.control.0.network[2], "gateway")}"
