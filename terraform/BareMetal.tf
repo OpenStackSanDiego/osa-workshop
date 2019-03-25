@@ -38,9 +38,8 @@ resource "packet_device" "compute" {
     inline = [
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
-#      "bash bridge-setup.sh > bridge-setup.out",
+      "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
-      "reboot &"
     ]
   }
 }
@@ -95,10 +94,9 @@ resource "packet_device" "control" {
     inline = [
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
-#      "bash bridge-setup.sh > bridge-setup.out",
+      "bash bridge-setup.sh > bridge-setup.out",
       "bash os-setup.sh > os-setup.out",
       "bash deployment_host.sh > deployment_host.out",
-      "reboot &"
     ]
   }
 }
