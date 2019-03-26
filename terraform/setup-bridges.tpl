@@ -5,6 +5,11 @@
 # this file was created by Terraform
 #
 
+# make this script re-entrant
+if [ `brctl show br-mgmt | grep br-mgmt | wc -l` -eq 1 ]; then
+  # if the bridge exists then leave so it doesn't get set back up again
+  exit
+fi
 
 PUBLIC_GATEWAY=`ip route list | egrep "^default" | cut -d' ' -f 3`
 PRIVATE_GATEWAY=`ip route list | egrep "^10.0.0.0/8" | cut -d' ' -f 3`
@@ -16,12 +21,6 @@ PUBLIC_SUBNET=`ip -4 -o addr show dev bond0 | grep $PUBLIC_IP | cut -d ' ' -f 7`
 
 # moves networking from the bond0 interface to the br-mgmt interface
 # be careful, this may disconnect your SSH connection - run as a script not one line at a time
-
-# make this script re-entrant
-#brctl show br-mgmt
-#if [ $? -ne 0 ]; then
-#  exit
-#fi
 
 ip addr flush dev bond0
 
