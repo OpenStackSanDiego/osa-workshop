@@ -16,10 +16,6 @@ resource "packet_device" "compute" {
   project_id    = "${var.packet_project_id}"
   billing_cycle = "hourly"
 
-  # /29 or /28 required for bridge
-  # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
-  #public_ipv4_subnet_size  = "29"
-
   provisioner "file" {
     source      = "${var.operating_system}-${var.compute_type}.sh"
     destination = "hardware-setup.sh"
@@ -39,12 +35,12 @@ resource "packet_device" "compute" {
   }
 }
 
-resource "packet_device" "control" {
+resource "packet_device" "infra" {
 
-  count            = "${var.control_count}"
+  count            = "${var.infra_count}"
   hostname         = "${format("infra%01d", count.index)}"
   operating_system = "${var.operating_system}"
-  plan             = "${var.control_type}"
+  plan             = "${var.infra_type}"
   tags             = ["openstack-${random_id.cloud.hex}","${var.terraform_username}"]
 
   connection {
@@ -56,12 +52,8 @@ resource "packet_device" "control" {
   project_id    = "${var.packet_project_id}"
   billing_cycle = "hourly"
 
-  # /29 or /28 required for bridge
-  # see https://support.packet.com/kb/articles/kvm-qemu-bridging-on-a-bonded-network
-  #public_ipv4_subnet_size  = "29"
-
   provisioner "file" {
-    source      = "${var.operating_system}-${var.control_type}.sh"
+    source      = "${var.operating_system}-${var.infra_type}.sh"
     destination = "hardware-setup.sh"
   }
 
