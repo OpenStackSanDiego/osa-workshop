@@ -1,7 +1,7 @@
 resource "packet_device" "compute" {
 
   count            = "${var.compute_count}"
-  hostname         = "${format("compute%02d", count.index)}"
+  hostname         = "${format("compute%01d", count.index)}"
   operating_system = "${var.operating_system}"
   plan             = "${var.compute_type}"
   tags             = ["openstack-${random_id.cloud.hex}","${var.terraform_username}"]
@@ -42,7 +42,7 @@ resource "packet_device" "compute" {
 resource "packet_device" "control" {
 
   count            = "${var.control_count}"
-  hostname         = "${format("infra%02d", count.index)}"
+  hostname         = "${format("infra%01d", count.index)}"
   operating_system = "${var.operating_system}"
   plan             = "${var.control_type}"
   tags             = ["openstack-${random_id.cloud.hex}","${var.terraform_username}"]
