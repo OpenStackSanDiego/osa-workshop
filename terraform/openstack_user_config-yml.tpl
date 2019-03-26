@@ -1,6 +1,18 @@
+
+#
+#Cloud ID Tag = ${cloud_id}
+#
+#
+#Private IP Block for Control 0 = ${control_0_container_subnet}
+#Private IP Block for Compute 0 = ${compute_0_container_subnet}
+#Private IP Block for Project   = ${project_private_subnet}
+#
+
+
+
 ---
 cidr_networks: &cidr_networks
-  container: ${container_nw}
+  container: ${project_private_subnet}
 
 used_ips:
   - ${all_host_private_ips}
@@ -34,8 +46,9 @@ global_overrides:
         is_ssh_address: true
         static_routes:
           # Route to container networks
-          - cidr: ${container_nw}
-            gateway: ${private_gw}
+          - cidr: ${project_private_subnet}
+# what goes here?
+#            gateway: 
     - network:
         container_bridge: "br-flat"
         container_type: "veth"
