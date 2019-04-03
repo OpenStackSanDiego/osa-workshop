@@ -56,3 +56,11 @@ variable "openstack_user_config_file" {
 variable "terraform_username" {
   description = "username running Terraform to set in host tags to help identify resource owners"
 }
+
+variable "infra_type" {
+  description = "packet.com compute plan"
+}
+
+variable "infra_count" {
+  description = "number of compute instances"
+}

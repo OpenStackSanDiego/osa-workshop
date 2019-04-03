@@ -12,10 +12,10 @@
 
 ---
 cidr_networks: &cidr_networks
-  container: ${project_private_subnet}
+  container: ${control_0_container_subnet}
 
 used_ips:
-  - ${all_host_private_ips}
+  - ${all_host_private_ips},${control_0_container_subnet_gw}
   - ${all_host_public_ips}
 
 global_overrides:
@@ -44,11 +44,11 @@ global_overrides:
           - hosts
         is_container_address: true
         is_ssh_address: true
+        # NOTE(curtis): Not sure this is doing anything
         static_routes:
           # Route to container networks
-          - cidr: ${project_private_subnet}
-# what goes here?
-#            gateway: 
+          - cidr: ${control_0_container_subnet}
+            gateway: ${control_0_private_gw}
     - network:
         container_bridge: "br-flat"
         container_type: "veth"

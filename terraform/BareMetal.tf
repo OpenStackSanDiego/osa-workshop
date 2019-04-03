@@ -35,7 +35,7 @@ resource "packet_device" "compute" {
   }
 }
 
-resource "packet_device" "infra" {
+resource "packet_device" "control" {
 
   count            = "${var.infra_count}"
   hostname         = "${format("infra%01d", count.index)}"
@@ -65,6 +65,12 @@ resource "packet_device" "infra" {
   provisioner "file" {
     source      = "deployment_host.sh"
     destination = "deployment_host.sh"
+  }
+
+# NOTE(curtis): This file is copied into place by deployment_host.sh
+  provisioner "file" {
+    source      = "user_variables.yml"
+    destination = "user_variables.yml"
   }
 
   # private SSH key for OSA to use
