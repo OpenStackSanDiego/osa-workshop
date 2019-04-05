@@ -1,4 +1,13 @@
+
+resource "packet_ssh_key" "default" {
+  name       = "default"
+  public_key = "${tls_private_key.default.public_key_openssh}"
+}
+
 resource "packet_device" "compute" {
+
+  depends_on       = ["packet_ssh_key.default"]
+
 
   count            = "${var.compute_count}"
   hostname         = "${format("compute%01d", count.index)}"
@@ -8,8 +17,10 @@ resource "packet_device" "compute" {
 
 
   connection {
-    user = "root"
-    private_key = "${file("${var.cloud_ssh_key_path}")}"
+    user        = "root"
+    private_key = "${tls_private_key.default.private_key_pem}"
+    agent       = false
+    timeout     = "30s"
   }
   user_data     = "#cloud-config\n\nssh_authorized_keys:\n  - \"${file("${var.cloud_ssh_public_key_path}")}\""
   facilities    = ["${var.packet_facility}"]
@@ -37,6 +48,8 @@ resource "packet_device" "compute" {
 
 resource "packet_device" "control" {
 
+  depends_on       = ["packet_ssh_key.default"]
+
   count            = "${var.infra_count}"
   hostname         = "${format("infra%01d", count.index)}"
   operating_system = "${var.operating_system}"
@@ -44,8 +57,10 @@ resource "packet_device" "control" {
   tags             = ["openstack-${random_id.cloud.hex}","${var.terraform_username}"]
 
   connection {
-    user = "root"
-    private_key = "${file("${var.cloud_ssh_key_path}")}"
+    user        = "root"
+    private_key = "${tls_private_key.default.private_key_pem}"
+    agent       = false
+    timeout     = "30s"
   }
   user_data     = "#cloud-config\n\nssh_authorized_keys:\n  - \"${file("${var.cloud_ssh_public_key_path}")}\""
   facilities    = ["${var.packet_facility}"]
