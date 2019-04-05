@@ -8,7 +8,8 @@ data "template_file" "setup-bridges-control" {
     # private subnet assigned to this host
     #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.control_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single control node right now
-    add-private-ips-command = "ip addr add ${packet_ip_attachment.control_ip_block_0.cidr_notation} dev br-mgmt"
+    # NOTE(curtis): FIXME - need to calculate /27 somehow... 
+    add-private-ips-command = "ip addr add ${local.control_0_container_subnet_gw}/27 dev br-mgmt"
   }
 }
 
@@ -22,7 +23,8 @@ data "template_file" "setup-bridges-compute" {
     # private subnet assigned to this host
     #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.compute_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single compute node right now
-    add-private-ips-command = "ip addr add ${packet_ip_attachment.compute_ip_block_0.cidr_notation} dev br-mgmt"
+    # FIXME: This will likely not work as the cidr_notation here uses the network IP, not a usable host IP, eg. minhost
+    add-private-ips-command = "ip addr add ${local.compute_0_container_subnet_gw}/27  dev br-mgmt"
   }
 }
 

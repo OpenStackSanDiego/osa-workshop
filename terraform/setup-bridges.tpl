@@ -6,9 +6,12 @@
 #
 
 # make this script re-entrant
-if [ `brctl show br-mgmt | grep br-mgmt | wc -l` -eq 1 ]; then
+/sbin/ip link show br-mgmt > /dev/null
+ret=$?
+echo $ret
+if [ $ret == 0 ]; then
   # if the bridge exists then leave so it doesn't get set back up again
-  exit
+  exit $ret
 fi
 
 PUBLIC_GATEWAY=`ip route list | egrep "^default" | cut -d' ' -f 3`
@@ -35,7 +38,7 @@ ip addr add $PRIVATE_IP/31 dev br-mgmt
 ip link set dev br-mgmt up
 
 ip route add default via $PUBLIC_GATEWAY dev br-mgmt
-ip route add 10.0.0.8 via $PRIVATE_GATEWAY dev br-mgmt
+ip route add 10.0.0.0/8 via $PRIVATE_GATEWAY dev br-mgmt
 
 # add any elastic IPs assigned
 ${add-public-ips-command}

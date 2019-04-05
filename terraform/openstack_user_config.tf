@@ -33,7 +33,6 @@ JSON
     hostname  = "${element(packet_device.compute.*.hostname, count.index)}"
   }
 }
-
 data "template_file" "openstack_user_config" {
   template = "${file("${path.module}/openstack_user_config-yml.tpl")}"
 
@@ -48,6 +47,7 @@ data "template_file" "openstack_user_config" {
     compute_public_ips = "${join(",",packet_device.compute.*.access_public_ipv4)}"
 
     # NOTE(curtis): This is for setting internal and external lb in OSA user config
+    # FIXME: should follow naming standard. Also, how would this work with multiple controllers?
     first_control_public_ip = "${element(packet_device.control.*.access_public_ipv4, 0)}"
     first_control_private_ip = "${element(packet_device.control.*.access_private_ipv4, 0)}"
 
@@ -61,6 +61,7 @@ data "template_file" "openstack_user_config" {
     compute_0_private_gw     = "${lookup(packet_device.compute.0.network[2], "gateway")}"
 
     # extra block of private IPs assigned to hosts
+    control_0_container_subnet_gw = "${local.control_0_container_subnet_gw}"
     control_0_container_subnet = "${packet_ip_attachment.control_ip_block_0.cidr_notation}"
     compute_0_container_subnet = "${packet_ip_attachment.compute_ip_block_0.cidr_notation}"
 
