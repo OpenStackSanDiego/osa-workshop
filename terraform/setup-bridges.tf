@@ -24,7 +24,7 @@ data "template_file" "setup-bridges-compute" {
     #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.compute_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single compute node right now
     # FIXME: This will likely not work as the cidr_notation here uses the network IP, not a usable host IP, eg. minhost
-    add-private-ips-command = "ip addr add ${packet_ip_attachment.compute_ip_block_0.cidr_notation} dev br-mgmt"
+    add-private-ips-command = "ip addr add ${local.compute_0_container_subnet_gw}/27  dev br-mgmt"
   }
 }
 

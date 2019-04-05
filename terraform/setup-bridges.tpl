@@ -38,7 +38,7 @@ ip addr add $PRIVATE_IP/31 dev br-mgmt
 ip link set dev br-mgmt up
 
 ip route add default via $PUBLIC_GATEWAY dev br-mgmt
-ip route add 10.0.0.8 via $PRIVATE_GATEWAY dev br-mgmt
+ip route add 10.0.0.0/8 via $PRIVATE_GATEWAY dev br-mgmt
 
 # add any elastic IPs assigned
 ${add-public-ips-command}
