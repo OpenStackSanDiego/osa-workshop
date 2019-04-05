@@ -58,9 +58,11 @@ variable "terraform_username" {
 }
 
 variable "infra_type" {
-  description = "packet.com compute plan"
+  description = "Instance type of OpenStack infra nodes"
+  default = "c1.small.x86"
 }
 
 variable "infra_count" {
   description = "number of compute instances"
+  default = "1"
 }
