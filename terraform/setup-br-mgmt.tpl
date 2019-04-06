@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# create the bridges required for OSA
+# create the br-mgmt required for OSA
 # this file was created by Terraform
 #
 
@@ -10,7 +10,7 @@
 ret=$?
 echo $ret
 if [ $ret == 0 ]; then
-  # if the bridge exists then leave so it doesn't get set back up again
+  # if the br-mgmt exists then leave so it doesn't get set back up again
   exit $ret
 fi
 
@@ -20,7 +20,7 @@ PUBLIC_IP=`hostname -I | cut -d' ' -f 1`
 PRIVATE_IP=`hostname -I | cut -d' ' -f 2`
 PUBLIC_SUBNET=`ip -4 -o addr show dev bond0 | grep $PUBLIC_IP | cut -d ' ' -f 7`
 
-# Container/Host management bridge: br-mgmt
+# Container/Host management br-mgmt
 
 # moves networking from the bond0 interface to the br-mgmt interface
 # be careful, this may disconnect your SSH connection - run as a script not one line at a time
