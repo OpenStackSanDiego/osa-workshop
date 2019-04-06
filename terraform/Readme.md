@@ -36,6 +36,11 @@ more /etc/openstack_deploy/user_variables.yml
 ```
 
 ```
+cd /opt/openstack-ansible
+./scripts/pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
+```
+
+```
 cd /opt/openstack-ansible/playbooks/
 openstack-ansible setup-infrastructure.yml --syntax-check
 openstack-ansible setup-hosts.yml
@@ -47,3 +52,17 @@ Verify database cluster
 ansible galera_container -m shell -a "mysql -h localhost -e 'show status like \"%wsrep_cluster_%\";'"
 ```
 
+
+```
+openstack-ansible setup-openstack.yml
+```
+
+```
+grep keystone_auth_admin_password /etc/openstack_deploy/user_secrets.yml
+```
+
+```
+lxc-ls | grep utility
+lxc-attach -n <container_name>
+openstack user list --os-cloud=default
+```
