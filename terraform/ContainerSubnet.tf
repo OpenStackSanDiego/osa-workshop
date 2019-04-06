@@ -21,10 +21,10 @@ locals {
 # assigned a /25 by default so we'll add one bit and get a /26
 resource "packet_ip_attachment" "control_ip_block_0" {
     device_id     = "${packet_device.control.0.id}"
-    cidr_notation = "${cidrsubnet(data.packet_precreated_ip_block.private_block.cidr_notation,2,1)}"
+    cidr_notation = "${cidrsubnet(data.packet_precreated_ip_block.private_block.cidr_notation,3,1)}"
 }
 
 resource "packet_ip_attachment" "compute_ip_block_0" {
     device_id     = "${packet_device.compute.0.id}"
-    cidr_notation = "${cidrsubnet(data.packet_precreated_ip_block.private_block.cidr_notation,2,2)}"
+    cidr_notation = "${cidrsubnet(data.packet_precreated_ip_block.private_block.cidr_notation,3,2)}"
 }
