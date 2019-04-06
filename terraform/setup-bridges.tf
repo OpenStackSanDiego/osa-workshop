@@ -45,7 +45,9 @@ resource "null_resource" "setup-bridges-control" {
       type        = "ssh"
       user        = "root"
       host        = "${element(packet_device.control.*.access_public_ipv4,count.index)}"
-      private_key = "${file("${var.cloud_ssh_key_path}")}"
+      private_key = "${tls_private_key.default.private_key_pem}"
+      agent       = false
+      timeout     = "30s"
     }
     content     = "${element(data.template_file.setup-bridges-control.*.rendered,count.index)}"
     destination = "setup-bridges.sh"
@@ -56,7 +58,9 @@ resource "null_resource" "setup-bridges-control" {
       type        = "ssh"
       user        = "root"
       host        = "${element(packet_device.control.*.access_public_ipv4,count.index)}"
-      private_key = "${file("${var.cloud_ssh_key_path}")}"
+      private_key = "${tls_private_key.default.private_key_pem}"
+      agent       = false
+      timeout     = "30s"
     }
     inline = [
       "bash setup-bridges.sh > setup-bridges.out",
@@ -81,7 +85,9 @@ resource "null_resource" "setup-bridges-compute" {
       type        = "ssh"
       user        = "root"
       host        = "${element(packet_device.compute.*.access_public_ipv4,count.index)}"
-      private_key = "${file("${var.cloud_ssh_key_path}")}"
+      private_key = "${tls_private_key.default.private_key_pem}"
+      agent       = false
+      timeout     = "30s"
     }
     content     = "${element(data.template_file.setup-bridges-compute.*.rendered,count.index)}"
     destination = "setup-bridges.sh"
@@ -92,7 +98,9 @@ resource "null_resource" "setup-bridges-compute" {
       type        = "ssh"
       user        = "root"
       host        = "${element(packet_device.compute.*.access_public_ipv4,count.index)}"
-      private_key = "${file("${var.cloud_ssh_key_path}")}"
+      private_key = "${tls_private_key.default.private_key_pem}"
+      agent       = false
+      timeout     = "30s"
     }
     inline = [
       "bash setup-bridges.sh > setup-bridges.out",

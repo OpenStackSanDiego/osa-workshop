@@ -88,7 +88,9 @@ resource "null_resource" "inventory" {
       type        = "ssh"
       user        = "root"
       host        = "${packet_device.control.*.access_public_ipv4}"
-      private_key = "${file("${var.cloud_ssh_key_path}")}"
+      private_key = "${tls_private_key.default.private_key_pem}"
+      agent       = false
+      timeout     = "30s"
     }
     source      = "${var.openstack_user_config_file}"
     destination = "/etc/openstack_deploy/openstack_user_config.yml"
