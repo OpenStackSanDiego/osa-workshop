@@ -26,6 +26,24 @@ terraform plan
 terraform apply
 ```
 
+```
+ssh root@<compute_ip> -i default.pem
+```
 
+```
+more /etc/openstack_deploy/openstack_user_config.yml
+more /etc/openstack_deploy/user_variables.yml
+```
 
+```
+cd /opt/openstack-ansible/playbooks/
+openstack-ansible setup-infrastructure.yml --syntax-check
+openstack-ansible setup-hosts.yml
+openstack-ansible setup-infrastructure.yml
+```
+
+Verify database cluster
+```
+ansible galera_container -m shell -a "mysql -h localhost -e 'show status like \"%wsrep_cluster_%\";'"
+```
 
