@@ -66,3 +66,14 @@ lxc-ls | grep utility
 lxc-attach -n <container_name>
 openstack user list --os-cloud=default
 ```
+
+```
+grep keystone_auth_admin_password /etc/openstack_deploy/user_secrets.yml
+```
+
+```
+openstack flavor create --ram 512   --disk 1   --vcpus 1 m1.tiny
+
+```
+
+http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
