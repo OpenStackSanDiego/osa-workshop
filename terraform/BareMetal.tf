@@ -97,7 +97,6 @@ resource "packet_device" "control" {
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
       "bash os-setup.sh > os-setup.out",
-      "bash deployment_host.sh > deployment_host.out",
     ]
   }
 }
