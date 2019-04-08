@@ -38,7 +38,6 @@ output "Private VXLAN IP Block for Control 0" {
   value = "${packet_ip_attachment.control_vxlan_block_0.cidr_notation}"
 }
 
-
 output "Private VXLAN IP Block for Compute 0" {
   value = "${packet_ip_attachment.compute_vxlan_block_0.cidr_notation}"
 }
