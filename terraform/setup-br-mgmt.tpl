@@ -20,6 +20,12 @@ PUBLIC_IP=`hostname -I | cut -d' ' -f 1`
 PRIVATE_IP=`hostname -I | cut -d' ' -f 2`
 PUBLIC_SUBNET=`ip -4 -o addr show dev bond0 | grep $PUBLIC_IP | cut -d ' ' -f 7`
 
+echo PUBLIC_GATEWAY $PUBLIC_GATEWAY
+echo PRIVATE_GATEWAY $PRIVATE_GATEWAY
+echo PUBLIC_IP $PUBLIC_IP
+echo PRIVATE_IP $PRIVATE_IP
+echo PUBLIC_SUBNET $PUBLIC_SUBNET
+
 # Container/Host management br-mgmt
 
 # moves networking from the bond0 interface to the br-mgmt interface
