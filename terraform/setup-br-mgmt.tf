@@ -3,13 +3,11 @@ data "template_file" "setup-br-mgmt-control" {
   count    = "${var.control_count}"
 
   vars {
-    # no public IPs to add
-    add-public-ips-command = ""
-    # private subnet assigned to this host
-    #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.control_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single control node right now
-    # NOTE(curtis): FIXME - need to calculate /28 somehow... 
-    add-private-ips-command = "ip addr add ${local.control_0_container_subnet_gw}/28 dev br-mgmt"
+    MGMT_IP     = "${cidrhost(packet_ip_attachment.control0_mgmt_block.cidr_notation,1)}"
+    MGMT_SUBNET = "${packet_ip_attachment.control0_mgmt_block.cidr_notation}"
+    VXLAN_IP     = "${cidrhost(packet_ip_attachment.control0_vxlan_block.cidr_notation,1)}"
+    VXLAN_SUBNET = "${packet_ip_attachment.control0_vxlan_block.cidr_notation}"
   }
 }
 
@@ -18,13 +16,11 @@ data "template_file" "setup-br-mgmt-compute" {
   count    = "${var.compute_count}"
 
   vars {
-    # no public IPs to add
-    add-public-ips-command = ""
-    # private subnet assigned to this host
-    #add-private-ips-command = "ip addr add ${element(packet_ip_attachment.compute_ip_block.*.cidr_notation,count.index) dev br-mgmt}"
     # hard coded for a single compute node right now
-    # FIXME: This will likely not work as the cidr_notation here uses the network IP, not a usable host IP, eg. minhost
-    add-private-ips-command = "ip addr add ${local.compute_0_container_subnet_gw}/28  dev br-mgmt"
+    MGMT_IP     = "${cidrhost(packet_ip_attachment.compute0_mgmt_block.cidr_notation,1)}"
+    MGMT_SUBNET = "${packet_ip_attachment.compute0_mgmt_block.cidr_notation}"
+    VXLAN_IP     = "${cidrhost(packet_ip_attachment.compute0_vxlan_block.cidr_notation,1)}"
+    VXLAN_SUBNET = "${packet_ip_attachment.compute0_vxlan_block.cidr_notation}"
   }
 }
 
@@ -63,7 +59,7 @@ resource "null_resource" "setup-br-mgmt-control" {
       timeout     = "30s"
     }
     inline = [
-      "bash setup-br-mgmt.sh > setup-br-mgmt.out",
+#      "bash setup-br-mgmt.sh > setup-br-mgmt.out",
     ]
   }
 }

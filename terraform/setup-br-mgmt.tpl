@@ -6,9 +6,9 @@
 #
 
 # make this script re-entrant
-/sbin/ip link show br-mgmt > /dev/null
+/sbin/ip link show br-mgmt 2> /dev/null
 ret=$?
-echo $ret
+echo "Does the link already exist?" $ret
 if [ $ret == 0 ]; then
   # if the br-mgmt exists then leave so it doesn't get set back up again
   exit $ret
@@ -25,6 +25,10 @@ echo PRIVATE_GATEWAY $PRIVATE_GATEWAY
 echo PUBLIC_IP $PUBLIC_IP
 echo PRIVATE_IP $PRIVATE_IP
 echo PUBLIC_SUBNET $PUBLIC_SUBNET
+echo MGMT_IP ${MGMT_IP}
+echo MGMT_SUBNET ${MGMT_SUBNET}
+echo VXLAN_IP ${VXLAN_IP}
+echo VXLAN_SUBNET ${VXLAN_SUBNET}
 
 # Container/Host management br-mgmt
 
@@ -38,14 +42,11 @@ brctl addif br-mgmt bond0
 
 ip addr add $PUBLIC_SUBNET dev br-mgmt
 ip addr add $PRIVATE_IP/31 dev br-mgmt
-
+ip addr add ${MGMT_IP}/28 dev br-mgmt
+ip addr add ${VXLAN_IP}/28 dev br-mgmt
 
 # link needs to be up before so link routes are live before adding next hop routes
 ip link set dev br-mgmt up
 
 ip route add default via $PUBLIC_GATEWAY dev br-mgmt
 ip route add 10.0.0.0/8 via $PRIVATE_GATEWAY dev br-mgmt
-
-# add any elastic IPs assigned
-${add-public-ips-command}
-${add-private-ips-command}
