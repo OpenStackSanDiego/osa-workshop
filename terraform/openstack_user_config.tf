@@ -76,7 +76,7 @@ data "template_file" "openstack_user_config" {
   }
 }
 
-resource "null_resource" "inventory" {
+resource "null_resource" "copy-openstack_user_config_yml" {
   triggers {
     template_rendered = "${data.template_file.openstack_user_config.rendered}"
   }
