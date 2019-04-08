@@ -60,10 +60,10 @@ data "template_file" "openstack_user_config" {
     compute_0_private_cidr = "${lookup(packet_device.compute.0.network[2], "cidr")}"
     compute_0_private_gw     = "${lookup(packet_device.compute.0.network[2], "gateway")}"
 
-    # extra block of private IPs assigned to hosts
-    control_0_container_subnet_gw = "${local.control_0_container_subnet_gw}"
-    control_0_container_subnet = "${packet_ip_attachment.control_ip_block_0.cidr_notation}"
-    compute_0_container_subnet = "${packet_ip_attachment.compute_ip_block_0.cidr_notation}"
+    # subnet for containers
+    control_0_container_subnet_gw = "${packet_ip_attachment.compute0_mgmt_block.cidr_notation}"
+    control_0_container_subnet = "${packet_ip_attachment.control0_mgmt_block.cidr_notation}"
+    compute_0_container_subnet = "${packet_ip_attachment.compute0_mgmt_block.cidr_notation}"
 
     # private subnet assigned to the project (full block which is then split across hosts)
     project_private_subnet = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
