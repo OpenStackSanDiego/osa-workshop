@@ -50,7 +50,7 @@ global_overrides:
           - cidr: ${control_0_container_subnet}
             gateway: ${control_0_private_gw}
     - network:
-        container_bridge: "br-flat"
+        container_bridge: "br-mgmt"
         container_type: "veth"
         container_interface: "eth12"
         container_mtu: 8900

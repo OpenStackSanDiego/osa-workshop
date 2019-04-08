@@ -26,18 +26,26 @@ output "Private IP Block for Project" {
   value = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
 }
 
-output "Private IP Block for Control 0" {
-  value = "${packet_ip_attachment.control_ip_block_0.cidr_notation}"
+output "br-mgmt IP for Control 0" {
+  value = "${cidrhost(packet_ip_attachment.control0_mgmt_block.cidr_notation,1)}"
 }
 
-output "Private IP Block for Compute 0" {
-  value = "${packet_ip_attachment.compute_ip_block_0.cidr_notation}"
+output "br-mgmt IP for Compute 0" {
+  value = "${cidrhost(packet_ip_attachment.compute0_mgmt_block.cidr_notation,1)}"
 }
 
-output "Private VXLAN IP Block for Control 0" {
-  value = "${packet_ip_attachment.control_vxlan_block_0.cidr_notation}"
+output "br-mgmt IP Block for Control 0" {
+  value = "${packet_ip_attachment.control0_mgmt_block.cidr_notation}"
 }
 
-output "Private VXLAN IP Block for Compute 0" {
-  value = "${packet_ip_attachment.compute_vxlan_block_0.cidr_notation}"
+output "br-mgmt IP Block for Compute 0" {
+  value = "${packet_ip_attachment.compute0_mgmt_block.cidr_notation}"
+}
+
+output "br-vxlan IP Block for Control 0" {
+  value = "${packet_ip_attachment.control0_vxlan_block.cidr_notation}"
+}
+
+output "br-vxlan IP Block for Compute 0" {
+  value = "${packet_ip_attachment.compute0_vxlan_block.cidr_notation}"
 }
