@@ -1,5 +1,6 @@
 
 
+Clone this repo.
 
 ```
 cp terraform.tfvars.sample terraform.tfvars
@@ -16,6 +17,7 @@ echo packet_auth_token=\"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456\" >> terraform.tfvars
 echo packet_project_id=\"12345678-90AB-CDEF-GHIJ-KLMNOPQRSTUV\" >> terraform.tfvars
 ```
 
+Terraform - See [Terraform Download](https://www.terraform.io/downloads.html)
 ```
 terraform init
 ```
