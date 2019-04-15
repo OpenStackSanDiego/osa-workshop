@@ -10,7 +10,7 @@ cp terraform.tfvars.sample terraform.tfvars
 sed -i "s/terraform_username=.*/terraform_username=\"$LOGNAME\"/g" terraform.tfvars
 ```
 
-Get your User API key (not Project API key) following these directions:
+Get your **User API key** (not Project API key) following these directions under "User Level API Key":
 https://support.packet.com/kb/articles/api-integrations
 ```
 echo packet_auth_token=\"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456\" >> terraform.tfvars
