@@ -10,32 +10,47 @@
 #
 #Cloud ID Tag = ${cloud_id}
 #
-# infra0
-# compute0 = ${compute0_public
+# Host IPs:
+# infra0_private_addr    = ${infra0_private_addr}
+# infra0_private_cidr    = ${infra0_private_cidr}
+# infra0_private_gw      = ${infra0_private_gw}
+# infra0_public_addr     = ${infra0_public_addr}
+# infra0_public_cidr     = ${infra0_public_cidr}
+# infra0_public_gw       = ${infra0_public_gw}
 #
-#Private IP Block for Control 0 = ${control_0_container_subnet}
-#Private IP Block for Compute 0 = ${compute_0_container_subnet}
-#Private IP Block for Project   = ${project_private_subnet}
+# compute0_private_addr  = ${compute0_private_addr}
+# compute0_private_cidr  = ${compute0_private_cidr}
+# compute0_private_gw    = ${compute0_private_gw}
+# compute0_public_addr   = ${compute0_public_addr}
+# compute0_public_cidr   = ${compute0_public_cidr}
+# compute0_public_gw     = ${compute0_public_gw}
 #
-#MGMT Block for Compute 0
+# Assigned subnets:
+# infra0_container_subnet   = ${infra0_container_subnet}
+# compute0_container_subnet = ${compute0_container_subnet}
 #
-*************************************
 
 cidr_networks:
-  infra0_container:   ${infra0_container_cidr}
-  infra0_tunnel:      ${infra0_tunnel_cidr}
-  compute0_container: ${compute0_container_cidr}
-  compute0_tunnel:    ${compute0_tunnel_cidr}
+  infra0_container_subnet:   ${infra0_container_subnet}
+  infra0_tunnel_subnet:      ${infra0_tunnel_subnet}
+  compute0_container_subnet: ${compute0_container_subnet}
+  compute0_tunnel_subnet:    ${compute0_tunnel_subnet}
 
 used_ips:
-  - ${infra0_container_gw}
-  - ${infra0_tunnel_gw}
-  - ${compute0_container_gw}
-  - ${compute0_tunnel_gw}
+  - ${infra0_public_addr}	# infra0_public_addr
+  - ${compute0_public_addr}	# compute0_public_addr
+  - ${infra0_private_addr}	# infra0_private_addr
+  - ${compute0_private_addr}	# compute0_private_addr
+  - ${infra0_container_gw}	# infra0_container_gw
+  - ${infra0_tunnel_gw} 	# infra0_tunnel_gw
+  - ${compute0_container_gw}	# compute0_container_gw
+  - ${compute0_tunnel_gw}	# compute0_tunnel_gw
 
 global_overrides:
-  internal_lb_vip_address: ${infra0_private_ip}
-  external_lb_vip_address: ${infra0_public_ip}
+  # right now these both point to a single infra0 host
+  # they should eventually point to a group of infra hosts
+  internal_lb_vip_address: ${infra0_private_addr}
+  external_lb_vip_address: ${infra0_public_addr}
 
   management_bridge: "br-mgmt"
   provider_networks:
@@ -43,92 +58,83 @@ global_overrides:
         container_bridge: "br-mgmt"
         container_type: "veth"
         container_interface: "eth1"
-        ip_from_q: "pod1_container"
+        ip_from_q: "infra0_container_subnet"
         address_prefix: "container"
         type: "raw"
         group_binds:
           - all_containers
           - hosts
-        reference_group: "pod1_hosts"
+        reference_group: "infra0_hosts"
         is_container_address: true
-        # Containers in pod1 need routes to the container networks of other pods
         static_routes:
           # Route to container networks
-          - cidr: 172.29.236.0/22 # <-  mgmt block infra0
-            gateway: 172.29.236.1 # <- IP #1 of mgmt block infra0
+          - cidr: ${infra0_container_subnet}
+            gateway: ${infra0_container_gw}
       - network:
         container_bridge: "br-mgmt"
         container_type: "veth"
         container_interface: "eth1"
-        ip_from_q: "pod4_container"
+        ip_from_q: "compute0_container_subnet"
         address_prefix: "container"
         type: "raw"
         group_binds:
           - all_containers
           - hosts
-        reference_group: "pod4_hosts"
+        reference_group: "compute0_hosts"
         is_container_address: true
-        # Containers in pod4 need routes to the container networks of other pods
         static_routes:
           # Route to container networks
-          - cidr: 172.29.236.0/22 # <- mgmt block compute0
-            gateway: 172.29.239.1 # <- IP #1 of mgm block compute0
+          - cidr: ${compute0_container_subnet}
+            gateway: ${compute0_container_gw}
     - network:
         container_bridge: "br-vxlan"
         container_type: "veth"
         container_interface: "eth10"
-        ip_from_q: "pod1_tunnel"
+        ip_from_q: "infra0_tunnel_subnet"
         address_prefix: "tunnel"
         type: "vxlan"
         range: "1:1000"
         net_name: "vxlan"
         group_binds:
           - neutron_linuxbridge_agent
-        reference_group: "pod1_hosts"
-        # Containers in pod1 need routes to the tunnel networks of other pods
+        reference_group: "infra0_hosts"
         static_routes:
           # Route to tunnel networks
-          - cidr: 172.29.240.0/22
-            gateway: 172.29.240.1
+          - cidr: ${infra0_tunnel_subnet}
+            gateway: ${infra0_tunnel_gw}
     - network:
         container_bridge: "br-vxlan"
         container_type: "veth"
         container_interface: "eth10"
-        ip_from_q: "pod4_tunnel"
+        ip_from_q: "compute0_tunnel_subnet"
         address_prefix: "tunnel"
         type: "vxlan"
         range: "1:1000"
         net_name: "vxlan"
         group_binds:
           - neutron_linuxbridge_agent
-        reference_group: "pod4_hosts"
-        # Containers in pod4 need routes to the tunnel networks of other pods
+        reference_group: "compute0_hosts"
         static_routes:
           # Route to tunnel networks
-          - cidr: 172.29.240.0/22
-            gateway: 172.29.243.1
+          - cidr: ${compute0_tunnel_subnet}
+            gateway: ${compute0_tunnel_gw}
 
 ###
 ### Infrastructure
 ###
 
-pod1_hosts:
-  infra1:
-    ip: 172.29.236.10
+infra0_hosts:
+  infra0:
+    ip: ${infra0_public_addr}
 
-pod4_hosts:
-  compute1:
-    ip: 172.29.245.10
+compute0_hosts:
+  compute0:
+    ip: ${compute0_public_addr}
 
 # galera, memcache, rabbitmq, utility
 shared-infra_hosts:
-  infra1:
-    ip: 172.29.236.10
-
-# repository (apt cache, python packages, etc)
-repo-infra_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
 
 ###
 ### OpenStack
@@ -136,44 +142,40 @@ repo-infra_hosts:
 
 # keystone
 identity_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
 
 
 # cinder api services
 storage-infra_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
 
 
 # glance
-# The settings here are repeated for each infra host.
-# They could instead be applied as global settings in
-# user_variables, but are left here to illustrate that
-# each container could have different storage targets.
 image_hosts:
-  infra1:
-    ip: 172.29.236.11
+  infra0:
+    ip: ${infra0_public_addr}
 
 # nova api, conductor, etc services
 compute-infra_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
   
 
 # horizon
 dashboard_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
 
 
 # neutron server, agents (L3, etc)
 network_hosts:
-  infra1:
-    ip: 172.29.236.10
+  infra0:
+    ip: ${infra0_public_addr}
 
 # nova hypervisors
 compute_hosts:
-  compute1:
-    ip: 172.29.245.10
+  compute0:
+    ip: ${compute0_public_addr}
 
