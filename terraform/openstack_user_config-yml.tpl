@@ -12,18 +12,10 @@
 #
 # Host IPs:
 # infra0_private_addr    = ${infra0_private_addr}
-# infra0_private_cidr    = ${infra0_private_cidr}
-# infra0_private_gw      = ${infra0_private_gw}
 # infra0_public_addr     = ${infra0_public_addr}
-# infra0_public_cidr     = ${infra0_public_cidr}
-# infra0_public_gw       = ${infra0_public_gw}
 #
 # compute0_private_addr  = ${compute0_private_addr}
-# compute0_private_cidr  = ${compute0_private_cidr}
-# compute0_private_gw    = ${compute0_private_gw}
 # compute0_public_addr   = ${compute0_public_addr}
-# compute0_public_cidr   = ${compute0_public_cidr}
-# compute0_public_gw     = ${compute0_public_gw}
 #
 # Assigned subnets:
 # infra0_container_subnet   = ${infra0_container_subnet}

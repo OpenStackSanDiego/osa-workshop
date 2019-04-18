@@ -1,4 +1,5 @@
 data "template_file" "openstack_user_config" {
+
   template = "${file("${path.module}/openstack_user_config-yml.tpl")}"
 
   vars {
@@ -9,21 +10,11 @@ data "template_file" "openstack_user_config" {
 
     # assigned individual IP - Private
     infra0_private_addr    = "${packet_device.control.0.access_private_ipv4}"
-    infra0_private_cidr    = "${lookup(packet_device.control.0.network[2], "cidr")}"
-    infra0_private_gw      = "${lookup(packet_device.control.0.network[2], "gateway")}"
-
     compute0_private_addr  = "${packet_device.compute.0.access_private_ipv4}"
-    compute0_private_cidr  = "${lookup(packet_device.compute.0.network[2], "cidr")}"
-    compute0_private_gw    = "${lookup(packet_device.compute.0.network[2], "gateway")}"
 
     # assigned individual IP - Public
     infra0_public_addr    = "${packet_device.control.0.access_public_ipv4}"
-    infra0_public_cidr    = "${lookup(packet_device.control.0.network[3], "cidr")}"
-    infra0_public_gw      = "${lookup(packet_device.control.0.network[3], "gateway")}"
-
     compute0_public_addr  = "${packet_device.compute.0.access_public_ipv4}"
-    compute0_public_cidr  = "${lookup(packet_device.compute.0.network[3], "cidr")}"
-    compute0_public_gw    = "${lookup(packet_device.compute.0.network[3], "gateway")}"
 
     # subnet for containers
     # gateway is the first IP in the subnet
@@ -39,15 +30,6 @@ data "template_file" "openstack_user_config" {
 
     compute0_tunnel_subnet       = "${packet_ip_attachment.compute0_vxlan_block.cidr_notation}"
     compute0_tunnel_gw           = "${cidrhost(packet_ip_attachment.compute0_vxlan_block.cidr_notation,1)}"
-
-    # private subnet assigned to the project (full block which is then split across hosts)
-#    project_private_subnet = "${data.packet_precreated_ip_block.private_block.cidr_notation}"
-#
-#    all_host_private_ips = "${join(",",packet_device.control.*.access_private_ipv4,
-#                                       packet_device.compute.*.access_private_ipv4)}"
-#
-#    all_host_public_ips = "${join(",",packet_device.control.*.access_public_ipv4,
-#                                      packet_device.compute.*.access_public_ipv4)}"
   }
 }
 
