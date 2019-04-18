@@ -1,4 +1,13 @@
 #
+# This configuration is based upon https://docs.openstack.org/openstack-ansible/rocky/user/l3pods/example.html
+#
+# Each physical host is equippned with:
+#   bond0    - two physical interfaces bonded together with a private IPv4 /31 and a public IPv4 /31
+#   br-mgmt  - IPv4 private subnet with first IP assigned to to the physical host on the bridge as a gateway
+#              to be used as the management network for services
+#   br-vxlan - IPv4 private subnet with first IP assigned to to the physical host on the bridge as a gateway
+#              to be used as the tenant tunnel network
+#
 #Cloud ID Tag = ${cloud_id}
 #
 #
@@ -22,12 +31,6 @@ used_ips:
 
 global_overrides:
   internal_lb_vip_address: internal-openstack.example.com
-  #
-  # The below domain name must resolve to an IP address
-  # in the CIDR specified in haproxy_keepalived_external_vip_cidr.
-  # If using different protocols (https/http) for the public/internal
-  # endpoints the two addresses must be different.
-  #
   external_lb_vip_address: openstack.example.com
   management_bridge: "br-mgmt"
   provider_networks:
