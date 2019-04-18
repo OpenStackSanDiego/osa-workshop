@@ -31,7 +31,7 @@ terraform apply
 ```
 
 ```
-ssh root@<compute_ip> -i default.pem
+ssh root@<control_ip> -i default.pem
 ```
 
 ```
