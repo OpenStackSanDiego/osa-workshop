@@ -10,28 +10,32 @@
 #
 #Cloud ID Tag = ${cloud_id}
 #
+# pod1: infra0
+# pod4: compute0
 #
 #Private IP Block for Control 0 = ${control_0_container_subnet}
 #Private IP Block for Compute 0 = ${compute_0_container_subnet}
 #Private IP Block for Project   = ${project_private_subnet}
 #
+#MGMT Block for Compute 0
+#
 *************************************
 
 cidr_networks:
-  pod1_container: 172.29.236.0/24
-  pod4_container: 172.29.239.0/24
-  pod1_tunnel: 172.29.240.0/24
-  pod4_tunnel: 172.29.243.0/24
+  infra0_container:   ${infra0_container_cidr}
+  infra0_tunnel:      ${infra0_tunnel_cidr}
+  compute0_container: ${compute0_container_cidr}
+  compute0_tunnel:    ${compute0_tunnel_cidr}
 
 used_ips:
-  - "172.29.236.1,172.29.236.50"
-  - "172.29.237.1,172.29.237.50"
-  - "172.29.245.1,172.29.245.50"
-  - "172.29.246.1,172.29.246.50"
+  - ${infra0_container_gw}
+  - ${infra0_tunnel_gw}
+  - ${compute0_container_gw}
+  - ${compute0_tunnel_gw}
 
 global_overrides:
-  internal_lb_vip_address: internal-openstack.example.com
-  external_lb_vip_address: openstack.example.com
+  internal_lb_vip_address: internal-openstack.example.com   # TODO
+  external_lb_vip_address: openstack.example.com            # TODO
   management_bridge: "br-mgmt"
   provider_networks:
     - network:
