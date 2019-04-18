@@ -48,8 +48,8 @@ data "template_file" "openstack_user_config" {
 
     # NOTE(curtis): This is for setting internal and external lb in OSA user config
     # FIXME: should follow naming standard. Also, how would this work with multiple controllers?
-    first_control_public_ip = "${element(packet_device.control.*.access_public_ipv4, 0)}"
-    first_control_private_ip = "${element(packet_device.control.*.access_private_ipv4, 0)}"
+    infra0_public_ip  = "${element(packet_device.control.*.access_public_ipv4, 0)}"
+    infra0_private_ip = "${element(packet_device.control.*.access_private_ipv4, 0)}"
 
     # assigned individual IP
     control_0_private_ip     = "${packet_device.control.0.access_private_ipv4}"
