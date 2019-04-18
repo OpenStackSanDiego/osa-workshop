@@ -1,5 +1,5 @@
-data "template_file" "setup-br-mgmt-control" {
-  template = "${file("${path.module}/setup-br-mgmt.tpl")}"
+data "template_file" "setup-bridges-control" {
+  template = "${file("${path.module}/setup-bridges.tpl")}"
   count    = "${var.control_count}"
 
   vars {
@@ -11,8 +11,8 @@ data "template_file" "setup-br-mgmt-control" {
   }
 }
 
-data "template_file" "setup-br-mgmt-compute" {
-  template = "${file("${path.module}/setup-br-mgmt.tpl")}"
+data "template_file" "setup-bridges-compute" {
+  template = "${file("${path.module}/setup-bridges.tpl")}"
   count    = "${var.compute_count}"
 
   vars {
@@ -24,7 +24,7 @@ data "template_file" "setup-br-mgmt-compute" {
   }
 }
 
-resource "null_resource" "setup-br-mgmt-control" {
+resource "null_resource" "setup-bridges-control" {
 
   depends_on = [
     "packet_device.control",
@@ -33,7 +33,7 @@ resource "null_resource" "setup-br-mgmt-control" {
   count    = "${var.control_count}"
 
   triggers {
-    template_rendered = "${element(data.template_file.setup-br-mgmt-control.*.rendered,count.index)}"
+    template_rendered = "${element(data.template_file.setup-bridges-control.*.rendered,count.index)}"
   }
 
   provisioner "file" {
@@ -45,8 +45,8 @@ resource "null_resource" "setup-br-mgmt-control" {
       agent       = false
       timeout     = "30s"
     }
-    content     = "${element(data.template_file.setup-br-mgmt-control.*.rendered,count.index)}"
-    destination = "setup-br-mgmt.sh"
+    content     = "${element(data.template_file.setup-bridges-control.*.rendered,count.index)}"
+    destination = "setup-bridges.sh"
   }
 
   provisioner "remote-exec" {
@@ -59,12 +59,12 @@ resource "null_resource" "setup-br-mgmt-control" {
       timeout     = "30s"
     }
     inline = [
-#      "bash setup-br-mgmt.sh > setup-br-mgmt.out",
+#      "bash setup-bridges.sh > setup-bridges.out",
     ]
   }
 }
 
-resource "null_resource" "setup-br-mgmt-compute" {
+resource "null_resource" "setup-bridges-compute" {
 
   depends_on = [
     "packet_device.compute",
@@ -73,7 +73,7 @@ resource "null_resource" "setup-br-mgmt-compute" {
   count    = "${var.compute_count}"
 
   triggers {
-    template_rendered = "${element(data.template_file.setup-br-mgmt-compute.*.rendered,count.index)}"
+    template_rendered = "${element(data.template_file.setup-bridges-compute.*.rendered,count.index)}"
   }
 
   provisioner "file" {
@@ -85,8 +85,8 @@ resource "null_resource" "setup-br-mgmt-compute" {
       agent       = false
       timeout     = "30s"
     }
-    content     = "${element(data.template_file.setup-br-mgmt-compute.*.rendered,count.index)}"
-    destination = "setup-br-mgmt.sh"
+    content     = "${element(data.template_file.setup-bridges-compute.*.rendered,count.index)}"
+    destination = "setup-bridges.sh"
   }
 
   provisioner "remote-exec" {
@@ -99,7 +99,7 @@ resource "null_resource" "setup-br-mgmt-compute" {
       timeout     = "30s"
     }
     inline = [
-      "bash setup-br-mgmt.sh > setup-br-mgmt.out",
+      "bash setup-bridges.sh > setup-bridges.out",
     ]
   }
 }
