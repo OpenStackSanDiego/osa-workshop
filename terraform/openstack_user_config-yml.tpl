@@ -128,6 +128,24 @@ shared-infra_hosts:
   infra0:
     ip: ${infra0_public_addr}
 
+# repository (apt cache, python packages, etc)
+repo-infra_hosts:
+  infra0:
+    ip: ${infra0_public_addr}
+
+# load balancer
+# Ideally the load balancer should not use the Infrastructure hosts.
+# Dedicated hardware is best for improved performance and security.
+haproxy_hosts:
+  infra0:
+    ip: ${infra0_public_addr}
+
+# rsyslog server
+log_hosts:
+  infra0:
+    ip: ${infra0_public_addr}
+
+
 ###
 ### OpenStack
 ###
