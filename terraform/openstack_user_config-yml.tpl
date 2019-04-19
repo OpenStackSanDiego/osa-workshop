@@ -29,14 +29,14 @@ cidr_networks:
   compute0_tunnel_subnet:    ${compute0_tunnel_subnet}
 
 used_ips:
-  - ${infra0_public_addr}	# infra0_public_addr
-  - ${compute0_public_addr}	# compute0_public_addr
-  - ${infra0_private_addr}	# infra0_private_addr
-  - ${compute0_private_addr}	# compute0_private_addr
-  - ${infra0_container_gw}	# infra0_container_gw
-  - ${infra0_tunnel_gw} 	# infra0_tunnel_gw
-  - ${compute0_container_gw}	# compute0_container_gw
-  - ${compute0_tunnel_gw}	# compute0_tunnel_gw
+  - ${infra0_public_addr}
+  - ${compute0_public_addr}
+  - ${infra0_private_addr}
+  - ${compute0_private_addr}
+  - ${infra0_container_gw}
+  - ${infra0_tunnel_gw}
+  - ${compute0_container_gw}
+  - ${compute0_tunnel_gw}
 
 global_overrides:
   # right now these both point to a single infra0 host
@@ -62,7 +62,7 @@ global_overrides:
           # Route to container networks
           - cidr: ${infra0_container_subnet}
             gateway: ${infra0_container_gw}
-      - network:
+    - network:
         container_bridge: "br-mgmt"
         container_type: "veth"
         container_interface: "eth1"
