@@ -20,11 +20,6 @@ resource "null_resource" "deployment-host" {
     destination = "deployment_host.sh"
   }
 
-  provisioner "file" {
-    source      = "user_variables.yml"
-    destination = "/etc/openstack_deploy/user_variables.yml"
-  }
-
   # private SSH key for OSA to use
   provisioner "file" {
     source      = "${var.cloud_ssh_key_path}"
@@ -41,5 +36,11 @@ resource "null_resource" "deployment-host" {
     inline = [
       "bash deployment_host.sh > deployment_host.out",
     ]
+  }
+
+  # run this after deployment_host.sh so that /etc/openstack_deploy is present
+  provisioner "file" {
+    source      = "user_variables.yml"
+    destination = "/etc/openstack_deploy/user_variables.yml"
   }
 }
