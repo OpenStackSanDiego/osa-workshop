@@ -59,7 +59,7 @@ resource "null_resource" "setup-bridges-control" {
       timeout     = "30s"
     }
     inline = [
-#      "bash setup-bridges.sh > setup-bridges.out",
+      "bash setup-bridges.sh > setup-bridges.out",
     ]
   }
 }
