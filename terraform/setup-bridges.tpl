@@ -24,3 +24,6 @@ ip addr add ${MGMT_IP}/28 dev br-mgmt
 
 brctl addbr br-vxlan
 ip addr add ${VXLAN_IP}/28 dev br-mgmt
+
+ip link set br-mgmt up
+ip link set br-vxlan up
