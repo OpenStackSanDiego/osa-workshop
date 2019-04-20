@@ -7,7 +7,7 @@ resource "null_resource" "distribute-key-control" {
 
   depends_on = ["packet_ssh_key.default"]
 
-  count = "${var.control_count}"
+  count = "${var.infra_count}"
 
   provisioner "file" {
     connection {
@@ -49,7 +49,7 @@ resource "null_resource" "ssh-agent-setup-control" {
   depends_on = ["null_resource.distribute-key-compute",
                 "null_resource.distribute-key-control"]
 
-  count = "${var.control_count}"
+  count = "${var.infra_count}"
 
   provisioner "remote-exec" {
     connection {
