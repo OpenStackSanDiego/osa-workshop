@@ -2,4 +2,5 @@
 # packet.com nodes. Without this mysqlchk will fail, haproxy won't forward
 # to galera, dbs can't be created.
 galera_monitoring_allowed_source: "0.0.0.0/0"
-neutron_l2_population: "false"
+neutron_l2_population: "true"
+neutron_vxlan_group: "none"
