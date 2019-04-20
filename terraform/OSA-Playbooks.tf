@@ -23,14 +23,14 @@ resource "null_resource" "osa-playbooks" {
     timeout     = "30s"
   }
 
+  provisioner "file" {
+    source      = "osa-playbooks.sh"
+    destination = "osa-playbooks.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
-      "( cd /opt/openstack-ansible ; ./scripts/pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml)" ,
-      "cd /opt/openstack-ansible/playbooks/",
-      "openstack-ansible setup-infrastructure.yml --syntax-check",
-      "openstack-ansible setup-hosts.yml",
-      "openstack-ansible setup-infrastructure.yml",
-      "openstack-ansible setup-openstack.yml",
+      "bash osa-playbooks.sh > osa-playbooks.out",
     ]
   }
 }
