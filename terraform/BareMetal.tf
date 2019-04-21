@@ -75,11 +75,28 @@ resource "packet_device" "control" {
     destination = "os-setup.sh"
   }
 
+  provisioner "file" {
+    source      = "deployment_host.sh"
+    destination = "deployment_host.sh"
+  }
+
+  # private SSH key for OSA to use
+  provisioner "file" {
+    source      = "${var.cloud_ssh_key_path}"
+    destination = "osa_rsa"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "ssh-keygen -A", 
       "bash hardware-setup.sh > hardware-setup.out",
       "bash os-setup.sh > os-setup.out",
+      "bash deployment_host.sh > deployment_host.out",
     ]
+  }
+
+  provisioner "file" {
+    source      = "user_variables.yml"
+    destination = "/etc/openstack_deploy/user_variables.yml"
   }
 }
