@@ -1,6 +1,6 @@
 data "template_file" "setup-bridges-control" {
   template = "${file("${path.module}/setup-bridges.tpl")}"
-  count    = "${var.control_count}"
+  count    = "${var.infra_count}"
 
   vars {
     # hard coded for a single control node right now
@@ -30,7 +30,7 @@ resource "null_resource" "setup-bridges-control" {
     "packet_device.control",
   ]
 
-  count    = "${var.control_count}"
+  count    = "${var.infra_count}"
 
   triggers {
     template_rendered = "${element(data.template_file.setup-bridges-control.*.rendered,count.index)}"

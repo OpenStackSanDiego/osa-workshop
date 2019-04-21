@@ -19,16 +19,6 @@ variable "compute_count" {
   default = "1"
 }
 
-variable "control_type" {
-  description = "Instance type of OpenStack control nodes"
-  default = "c1.small.x86"
-}
-
-variable "control_count" {
-  description = "Number of OpenStack control nodes to deploy"
-  default = "1"
-}
-
 variable "operating_system" {
   description = "Operating System to install across nodes"
   default = "ubuntu_18_04"
