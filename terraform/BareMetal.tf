@@ -23,7 +23,7 @@ resource "packet_device" "compute" {
     timeout     = "30s"
   }
   facilities    = ["${var.packet_facility}"]
-  project_id    = "${var.packet_project_id}"
+  project_id    = "${packet_project.osa.id}"
   billing_cycle = "hourly"
 
   provisioner "file" {
@@ -62,7 +62,7 @@ resource "packet_device" "control" {
     timeout     = "30s"
   }
   facilities    = ["${var.packet_facility}"]
-  project_id    = "${var.packet_project_id}"
+  project_id    = "${packet_project.osa.id}"
   billing_cycle = "hourly"
 
   provisioner "file" {
