@@ -1,7 +1,5 @@
 data "template_file" "openstack_user_config" {
   
-  depends_on = ["null_resource.deployment-host"]
-  
   template = "${file("${path.module}/openstack_user_config-yml.tpl")}"
 
   vars {
@@ -36,9 +34,6 @@ data "template_file" "openstack_user_config" {
 }
 
 resource "null_resource" "copy-openstack_user_config_yml" {
-
-  # creates /etc/openstack_deploy directory where this generated config file is saved
-  depends_on = ["null_resource.deployment-host"]
 
   triggers {
     template_rendered = "${data.template_file.openstack_user_config.rendered}"
