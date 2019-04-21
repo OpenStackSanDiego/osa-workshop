@@ -1,6 +1,6 @@
-# any values set here will override the defaults in variables.tf
+# any values set here will override the defaults in var.tf
 
-#facility = "ewr1"
+#packet_facility = "ewr1"
 #operating_system = "ubuntu_16_04"
 
 #
