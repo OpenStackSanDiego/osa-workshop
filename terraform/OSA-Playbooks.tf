@@ -3,8 +3,7 @@
 #
 resource "null_resource" "osa-playbooks" {
 
-  depends_on = ["null_resource.deployment-host", 
-                "packet_device.control",
+  depends_on = ["packet_device.control",
                 "packet_device.compute",
                 "null_resource.distribute-key-control",
                 "null_resource.ssh-agent-setup-control",
