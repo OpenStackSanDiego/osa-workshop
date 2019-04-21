@@ -1,5 +1,7 @@
 data "template_file" "openstack_user_config" {
-
+  
+  depends_on = ["null_resource.deployment-host"]
+  
   template = "${file("${path.module}/openstack_user_config-yml.tpl")}"
 
   vars {
