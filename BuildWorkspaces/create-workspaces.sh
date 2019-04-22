@@ -3,7 +3,7 @@
 # account running this script should have sudo group 
 # 
 if [ "$#" -ne 3 ] ; then
-  echo "Usage: $0 Packet-Auth-Token Number-Workspaces-To-Create" >&2
+  echo "Usage: $0 Packet-Auth-Token Number-Workspaces-To-Create Packet-Facility" >&2
   exit 1
 fi
 
@@ -45,7 +45,6 @@ do
   echo terraform_username=\"$USER\"             >> terraform/terraform.tfvars
   echo project_name=\"$USER $PACKET_FACILITY\"  >> terraform/terraform.tfvars
   echo packet_facility=\"$PACKET_FACILITY\"     >> terraform/terraform.tfvars
-
 
   # copy over the student files from the base template
   sudo -u $USER cp -r terraform /home/$USER/

@@ -20,56 +20,45 @@ With your assigned lab username (i.e. osa03), log into the lab master server usi
 ssh <your_lab_username>@<lab_master_server>
 ```
 
-## Verify Deployed Instances
+## Verify Deployed Hardware
 
 We've already taken the liberty of deploying a number of servers into your environment and installing the required software so you don't have to wait for the installs.
 This way you can see the end result. Don't worry, you'll get a chance to deploy it all yourself shortly.
 
-Let's verify that all your hosts are deployed OK. You should have two physical hosts deployed. 
+Let's verify that all your hosts are deployed OK. You should have two physical hosts deployed, a compute and an infra physical node. The "Cloud ID Tag" is just an internal lab reference so we an track which physical hardware nodes are associated with which student lab environments.
 
 ```
-cd WorkspaceTemplate
+cd terraform
 terraform output
 ```
 
 ```
-Server IPs v4 = [
-    147.75.98.155,
-    147.75.76.169
+Cloud ID Tag = dabbc227
+Compute public IPs = [
+    27.75.192.173
 ]
+Infra/Control public IPs = [
+    27.75.67.197
+]
+SSH Access to run OpenStack-Ansible Playbooks = ssh root@27.75.67.197 -i default.pem
 ```
 
 And let's do a quick network connectivity check to each host.
 
 ```
-ping -c 5 <Server #1 IP v4>
-ping -c 5 <Server #2 IP v4>
+ping -c 5 <compute public IP>
+ping -c 5 <infra public IP>
 ```
 
 You should see something like:
 ```
-bgp03@stl:~/WorkspaceTemplate$ ping -c 5 147.75.194.9
+osa03@lab-master:~/terraform$ ping -c 5 27.75.194.9
 PING 147.75.194.9 (147.75.194.9) 56(84) bytes of data.
-64 bytes from 147.75.194.9: icmp_seq=1 ttl=60 time=0.206 ms
-64 bytes from 147.75.194.9: icmp_seq=2 ttl=60 time=0.121 ms
-64 bytes from 147.75.194.9: icmp_seq=3 ttl=60 time=0.183 ms
-64 bytes from 147.75.194.9: icmp_seq=4 ttl=60 time=0.119 ms
-64 bytes from 147.75.194.9: icmp_seq=5 ttl=60 time=0.176 ms
-
---- 147.75.194.9 ping statistics ---
-5 packets transmitted, 5 received, 0% packet loss, time 4093ms
-rtt min/avg/max/mdev = 0.119/0.161/0.206/0.034 ms
-bgp03@stl:~/WorkspaceTemplate$ ping -c 5 147.75.195.57
-PING 147.75.195.57 (147.75.195.57) 56(84) bytes of data.
-64 bytes from 147.75.195.57: icmp_seq=1 ttl=60 time=0.169 ms
-64 bytes from 147.75.195.57: icmp_seq=2 ttl=60 time=0.111 ms
-64 bytes from 147.75.195.57: icmp_seq=3 ttl=60 time=0.169 ms
-64 bytes from 147.75.195.57: icmp_seq=4 ttl=60 time=0.156 ms
-64 bytes from 147.75.195.57: icmp_seq=5 ttl=60 time=0.165 ms
-
---- 147.75.195.57 ping statistics ---
-5 packets transmitted, 5 received, 0% packet loss, time 4073ms
-rtt min/avg/max/mdev = 0.111/0.154/0.169/0.022 ms
+64 bytes from 27.75.194.9: icmp_seq=1 ttl=60 time=0.206 ms
+64 bytes from 27.75.194.9: icmp_seq=2 ttl=60 time=0.121 ms
+64 bytes from 27.75.194.9: icmp_seq=3 ttl=60 time=0.183 ms
+64 bytes from 27.75.194.9: icmp_seq=4 ttl=60 time=0.119 ms
+64 bytes from 27.75.194.9: icmp_seq=5 ttl=60 time=0.176 ms
 ```
 
 All the hosts should reply back from the ping requests. If, for some reason, your hosts are not responding, please go back and pick a different lab assignment and reverify.
@@ -77,3 +66,5 @@ All the hosts should reply back from the ping requests. If, for some reason, you
 ## Next Steps
 
 Once you've validated your environment, proceed to [Lab 2](Lab02.md)
+
+(C) JHL Consulting LLC 2019
