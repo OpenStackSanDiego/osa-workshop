@@ -3,7 +3,7 @@
 # account running this script should have sudo group 
 # 
 if [ "$#" -ne 3 ] ; then
-  echo "Usage: $0 Packet-Auth-Token Packet-Project-ID Number-Workspaces-To-Create" >&2
+  echo "Usage: $0 Packet-Auth-Token Number-Workspaces-To-Create" >&2
   exit 1
 fi
 
@@ -11,14 +11,14 @@ fi
 LAB_NAME="osa"
 
 PACKET_AUTH_TOKEN="$1"
-PACKET_PROJECT_ID="$2"
-NUMBER_WORKSPACES="$3"
+NUMBER_WORKSPACES="$2"
+PACKET_FACILITY="$3"
 
 echo PACKET_AUTH_TOKEN=$PACKET_AUTH_TOKEN
-echo PACKET_PROJECT_ID=$PACKET_PROJECT_ID
 echo NUMBER_WORKSPACES=$NUMBER_WORKSPACES
+echo PACKET_FACILITY=$PACKET_FACILITY
 
-git clone https://github.com/OpenStackSanDiego/osa-workshop
+git clone https://github.com/OpenStackSanDiego/osa-workshop -b gen_project
 cd osa-workshop
 
 # Terraform needs access to these to install plugins
@@ -40,11 +40,11 @@ do
 
   echo ""                                       >  terraform/terraform.tfvars
   echo packet_auth_token=\"$PACKET_AUTH_TOKEN\" >> terraform/terraform.tfvars
-  echo packet_project_id=\"$PACKET_PROJECT_ID\" >> terraform/terraform.tfvars
   echo lab_number=\"$i\"                        >> terraform/terraform.tfvars
   echo lab_name=\"$USER\"                       >> terraform/terraform.tfvars
   echo terraform_username=\"$USER\"             >> terraform/terraform.tfvars
-  echo project_name=\"$USER\"                   >> terraform/terraform.tfvars
+  echo project_name=\"$USER $PACKET_FACILITY\"  >> terraform/terraform.tfvars
+  echo packet_facility=\"$PACKET_FACILITY\"     >> terraform/terraform.tfvars
 
 
   # copy over the student files from the base template

@@ -11,7 +11,6 @@ resource "null_resource" "lab-users" {
     timeout     = "30s"
   }
 
-  # create-workspaces.sh BGP-Password Packet-Auth-Token Packet-Project-ID Number-Workspaces-To-Create" >&2
   provisioner "file" {
     source      = "create-workspaces.sh"
     destination = "create-workspaces.sh"
@@ -19,7 +18,7 @@ resource "null_resource" "lab-users" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash create-workspaces.sh ${var.packet_auth_token} ${var.packet_project_id} ${var.number_labs} > create-workspaces.out",
+      "bash create-workspaces.sh ${var.packet_auth_token} ${var.number_labs} ${var.packet_facility} > create-workspaces.out",
     ]
   }
 
