@@ -1,6 +1,6 @@
 # any values set here will override the defaults in variables.tf
 
-#facility = "ewr1"
+#packet_facility = "ewr1"
 #hostname = "osa-lab-master"
 #
 # The auth_token and project_id values need to be set
