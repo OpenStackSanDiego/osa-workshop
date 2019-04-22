@@ -19,7 +19,7 @@ resource "null_resource" "lab-users" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash create-workspaces.sh ${var.packet_auth_token} ${var.packet_project_id} ${var.number_labs} > create-workspaces.out",
+      "bash create-workspaces.sh ${var.packet_auth_token} ${var.number_labs} ${var.packet_facility} > create-workspaces.out",
     ]
   }
 
