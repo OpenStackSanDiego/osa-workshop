@@ -1,4 +1,4 @@
-# Lab 07 - Galera cluster maintenance¶
+# Lab 07 - Galera cluster maintenanceï¿½
 
 ## Goal
 
@@ -17,3 +17,5 @@ https://docs.openstack.org/openstack-ansible/latest/admin/maintenance-tasks.html
 ## Next Steps
 
 Once..., proceed to [Lab 8](Lab08.md)
+
+(C) JHL Consulting LLC 2019
