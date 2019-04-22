@@ -1,9 +1,4 @@
 
-# set via environment variable TF_VAR_packet_project_id
-variable "packet_project_id" {
-  description = "Packet Project ID"
-}
-
 # set via environment variable TF_VAR_packet_auth_token
 variable "packet_auth_token" {
   description = "Packet API Token"

@@ -7,7 +7,8 @@ data "packet_precreated_ip_block" "private_block" {
     ]
 
     facility         = "${var.packet_facility}"
-    project_id       = "${var.packet_project_id}"
+    project_id       = "${packet_project.osa.id}"
+
     address_family   = 4
     public           = false
 }
