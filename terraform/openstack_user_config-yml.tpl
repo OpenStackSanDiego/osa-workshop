@@ -189,3 +189,15 @@ compute_hosts:
   compute0:
     ip: ${compute0_public_addr}
 
+
+# unused servces - included as a place holder and to suppress warnings
+unbound:
+
+repo_masters:
+
+etcd_all:
+
+ceph-mon:
+
+ceph-osd:
+
