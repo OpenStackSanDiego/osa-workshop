@@ -53,7 +53,7 @@ do
   sudo touch terraform.tfstate
   sudo chown $USER.sudo terraform.tfstate
   sudo -u $USER terraform init
-#  screen -dmS $USER-terraform-apply terraform apply -auto-approve
+  screen -dmS $USER-terraform-apply terraform apply -auto-approve
   popd
 done
 
