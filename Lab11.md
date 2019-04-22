@@ -1,17 +1,27 @@
-# Lab 06 - Logging
-
-## Goals
-
-* Examine where OpenStack logs are stored within OSA
+# Lab 11 - Lab Cleanup
 
 ## Prerequisites
 
 * Access to the lab master server from Lab 01
 
-## TODO
+## Lab Teardown
 
-## Next Steps
+Congrats! You made it through the lab exercises!
 
-Once..., proceed to [Lab 7](Lab07.md)
+Please take a moment to tear down (turn off) all the deployed hosts so they can be made available to others. You'll want to run this on the lab-master.
+
+```
+cd terraform/
+terraform destroy
+```
+
+Please mark your master lab account on the etherpad as complete so it can be deallocated.
+
+## Feedback
+
+Do you have questions or feedback about the lab? Please leave them as an "Issue" on GitHub:
+
+[Workshop GitHub](https://github.com/openstacksandiego/osa-workshop)
 
 (C) JHL Consulting LLC 2019
+
