@@ -29,16 +29,6 @@ variable "operating_system" {
   default = "ubuntu_18_04"
 }
 
-variable "cloud_ssh_public_key_path" {
-  description = "Path to your authorized keys to put on hosts"
-  default = "./authorized_keys"
-}
-
-variable "cloud_ssh_key_path" {
-  description = "Path to your public SSH key to be added to the deployed hosts"
-  default = "~/.ssh/id_rsa"
-}
-
 variable "openstack_user_config_file" {
   description = "output OSA configuration file"
   default = "openstack_user_config.yml"

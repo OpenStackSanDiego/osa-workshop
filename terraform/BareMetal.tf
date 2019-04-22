@@ -82,8 +82,8 @@ resource "packet_device" "control" {
 
   # private SSH key for OSA to use
   provisioner "file" {
-    source      = "${var.cloud_ssh_key_path}"
-    destination = "osa_rsa"
+    content    = "${tls_private_key.default.private_key_pem}"
+    destination = "osa_rsa.pem"
   }
 
   provisioner "remote-exec" {
