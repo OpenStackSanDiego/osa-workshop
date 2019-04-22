@@ -32,7 +32,7 @@ do
   USER=$LAB_NAME$i
   echo "Creating $USER"
   #  encrypted password is openstack
-  sudo useradd -d /home/$USER -p 42ZTHaRqaaYvI -s /bin/bash $USER 
+  sudo useradd -d /home/$USER -p 42ZTHaRqaaYvI -s /bin/bash $USER -G sudo
   sudo mkdir /home/$USER
   sudo chown $USER.sudo /home/$USER
   sudo chmod 2775 /home/$USER
@@ -53,7 +53,7 @@ do
   sudo touch terraform.tfstate
   sudo chown $USER.sudo terraform.tfstate
   sudo -u $USER terraform init
-#  screen -dmS $USER-terraform-apply terraform apply -auto-approve
+  screen -dmS $USER-terraform-apply terraform apply -auto-approve
   popd
 done
 
