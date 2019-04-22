@@ -18,7 +18,7 @@ echo PACKET_AUTH_TOKEN=$PACKET_AUTH_TOKEN
 echo NUMBER_WORKSPACES=$NUMBER_WORKSPACES
 echo PACKET_FACILITY=$PACKET_FACILITY
 
-git clone https://github.com/OpenStackSanDiego/osa-workshop -b gen_project
+git clone https://github.com/OpenStackSanDiego/osa-workshop
 cd osa-workshop
 
 # Terraform needs access to these to install plugins
