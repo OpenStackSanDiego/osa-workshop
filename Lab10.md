@@ -22,3 +22,5 @@ Do you have questions or feedback about the lab? Please leave them as an "Issue"
 
 [Workshop GitHub](https://github.com/openstacksandiego/osa-workshop)
 
+(C) JHL Consulting LLC 2019
+

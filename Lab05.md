@@ -15,3 +15,5 @@
 ## Next Steps
 
 Once..., proceed to [Lab 6](Lab06.md)
+
+(C) JHL Consulting LLC 2019

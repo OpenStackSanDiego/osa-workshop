@@ -15,3 +15,5 @@ https://docs.openstack.org/openstack-ansible/latest/admin/maintenance-tasks.html
 ## Next Steps
 
 Once..., proceed to [Lab 9](Lab09.md)
+
+(C) JHL Consulting LLC 2019
