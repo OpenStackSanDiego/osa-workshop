@@ -1,90 +1,55 @@
+## Building a Standalone Environment
 
+These steps walk through setting up an individual lab environment. You'll need [Git](https://git-scm.com) and [Terraform](https://www.terraform.io) installed on your workstation to set up the lab environment as well as an account with [Packet](http://www.packet.com/)
 
-Clone this repo.
+### Clone this Repo
+
+On your workstation, clone this repo.
 
 ```
-cp terraform.tfvars.sample terraform.tfvars
+git clone git@github.com:OpenStackSanDiego/osa-workshop.git
 ```
 
-```
-sed -i "s/terraform_username=.*/terraform_username=\"$LOGNAME\"/g" terraform.tfvars
-```
+### Packet API Key
 
 Get your **User API key** (not Project API key) following these directions under "User Level API Key":
 https://support.packet.com/kb/articles/api-integrations
+
+### Setup the Terraform Variables
+
+Replace ABCDEFGHIJKLMNOPQRSTUVWXYZ123456 with your Packet Auth Token from the previous step.
+
 ```
+cd terraform/
+cp terraform.tfvars.sample terraform.tfvars
 echo packet_auth_token=\"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456\" >> terraform.tfvars
-echo packet_project_id=\"12345678-90AB-CDEF-GHIJ-KLMNOPQRSTUV\" >> terraform.tfvars
+echo 
 ```
 
-Terraform - See [Terraform Download](https://www.terraform.io/downloads.html)
+### Execute Terraform
+
+Download the necessary Terraform providers.
 ```
 terraform init
 ```
 
+Validate the Terraform plan.
 ```
 terraform plan
 ```
 
+Apply the Terraform plan.
 ```
 terraform apply
 ```
 
-```
-ssh root@<control_ip> -i default.pem
-```
-
-```
-more /etc/openstack_deploy/openstack_user_config.yml
-more /etc/openstack_deploy/user_variables.yml
-```
-
-```
-cd /opt/openstack-ansible
-./scripts/pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
-```
-
-```
-cd /opt/openstack-ansible/playbooks/
-openstack-ansible setup-infrastructure.yml --syntax-check
-openstack-ansible setup-hosts.yml
-openstack-ansible setup-infrastructure.yml
-```
-
-Verify database cluster
-```
-ansible galera_container -m shell -a "mysql -h localhost -e 'show status like \"%wsrep_cluster_%\";'"
-```
+It will take approximately 30 minutes for OpenStack Ansible to complete the installation.
 
 
-```
-openstack-ansible setup-openstack.yml
-```
+### Verify Deployment
 
-```
-grep keystone_auth_admin_password /etc/openstack_deploy/user_secrets.yml
-```
+At this point, proceed to "Lab01"(Lab01.md) to verify your deployment.
 
-```
-lxc-ls | grep utility
-lxc-attach -n <container_name>
-openstack user list --os-cloud=default
-```
+### Lab Teardown
 
-```
-grep keystone_auth_admin_password /etc/openstack_deploy/user_secrets.yml
-source openrc
-```
-
-```
-ssh-keygen
-alias os="openstack --os-cloud=default"
-wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
-os image create --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public cirros
-os flavor create --os-cloud=default --ram 512   --disk 1   --vcpus 1 m1.tiny
-os keypair create --public-key ~/.ssh/id_rsa.pub  default
-os network create test-vxlan
-os subnet create --network test-vxlan --subnet-range 192.168.0.0/24 test-vxlan-subnet
-os server create --flavor m1.tiny --image cirros --key-name default c1
-http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
-```
+When you're done using the lab, the lab can be torn down and the physical hosts released with ```terraform destroy```. Infrastructure costs from Packet will stop once the physical hosts have been released.
