@@ -5,9 +5,11 @@ OpenStack Ansible Workshop
 
 If you are attending this workshop in person, please proceed to [Lab01](Lab01.md). For in person workshops, we've taken the liberty to predeploy you a dedicate cloud environment.
 
-If you're looking to run this workshop remotely, you'll need an environment to clone this GitHub repo and run Terraform. For more details, please see [Building your own Lab](terraform/Readme.md)
+If you're looking to run a single instance of this workshop remotely, you'll need an environment to clone this GitHub repo and run Terraform. For more details, please see [Building your own Lab](terraform/Readme.md).
 
-Are you interested in running this workshop at your company or conference? [Drop us a note!](https://twitter.com/john_studarus)
+If you're interested in spinning up multiple workshop instances to support multiple students, please see [Building multiple Labs](terraform/BuildWorkspaces/Readme.md).
+
+Are you interested in running this workshop at your company or conference? [Drop us a note!](https://twitter.com/john_studarus).
 
 Questions? Issues? Feel free to post an [Issue](https://github.com/openstacksandiego/osa-workshop/issues).
 
