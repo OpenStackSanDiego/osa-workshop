@@ -17,12 +17,12 @@ https://docs.openstack.org/project-deploy-guide/openstack-ansible/rocky/targetho
 
 We've taken the liberty to setup this networking on the target host already. We're going to walk that networking configuration on the deployed target hosts.
 
-## Key Maintenance
+## Permission Maintenance
 
-Before we start, we need some permission cleanup on the lab key files. The files are currently owned by root and needs to be owned by your user. We'll run ```chmod``` to give you access to them.
+Before we start, we need some permission cleanup on the lab files. Some files are currently owned by root and needs to be owned by your user. We'll run ```chmod``` to give you access to them.
 
 ```
-osa02@osa-lab-master:~/terraform$ sudo chown `whoami` default*
+osa02@osa-lab-master:~/terraform$ sudo chown `whoami` *
 ```
 
 ## Examine Networking
