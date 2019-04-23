@@ -1,43 +1,61 @@
+## Building a Standalone Environment
 
+These steps walk through setting up an individual lab environment. You'll need [Git](https://git-scm.com) and [Terraform](https://www.terraform.io) installed on your workstation to set up the lab environment as well as an account with [Packet](http://www.packet.com/)
 
-Clone this repo.
+### Clone this Repo
 
+On your workstation, clone this repo.
+
+<<<<<<< HEAD
 ```
-cp terraform.tfvars.sample terraform.tfvars
+git clone git@github.com:OpenStackSanDiego/osa-workshop.git
 ```
+
+### Packet API Key
 
 Get your **User API key** (not Project API key) following these directions under "User Level API Key":
 https://support.packet.com/kb/articles/api-integrations
+
+### Setup the Terraform Variables
+
+Replace ABCDEFGHIJKLMNOPQRSTUVWXYZ123456 with your Packet Auth Token from the previous step.
+
 ```
+cd terraform/
+cp terraform.tfvars.sample terraform.tfvars
 echo packet_auth_token=\"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456\" >> terraform.tfvars
 ```
 
+This TF creates a new project for this cloud. If you're running multiple labs make sure to give each project a different name. These projects are visible on the Packet GUI.
 
-This TF creates a new project for this cloud. Give your project a name so you can identify it.
 ```
-eho project_name = \"OSA-dave\" >> terraform.tfvars
+eho project_name = \"OSA-lab-1\" >> terraform.tfvars
 ```
 
-Terraform - See [Terraform Download](https://www.terraform.io/downloads.html)
+### Execute Terraform
+
+Download the necessary Terraform providers.
 ```
 terraform init
 ```
 
+Validate the Terraform plan.
 ```
 terraform plan
 ```
 
-Running TF will deploy the hardware and run all the OSA playbooks. This will take 1/2 hour.
-
+Apply the Terraform plan.
 ```
 terraform apply
 ```
 
-Once the cloud is up, you can log into the infra host.
+It will take approximately 30 minutes for OpenStack Ansible to complete the installation.
 
 
-```
-ssh root@<control_ip> -i default.pem
-```
+### Verify Deployment
 
-See [Cirros.sh](Cirros.sh) for steps to startup your first instance.
+At this point, proceed to "Lab01"(Lab01.md) to verify your deployment.
+
+### Lab Teardown
+
+When you're done using the lab, the lab can be torn down and the physical hosts released with ```terraform destroy```. Infrastructure costs from Packet will stop once the physical hosts have been released.
