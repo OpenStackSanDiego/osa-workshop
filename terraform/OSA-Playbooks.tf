@@ -41,9 +41,9 @@ resource "null_resource" "osa-playbooks" {
     destination = "osa-playbooks.sh"
   }
 
-#  provisioner "remote-exec" {
-#    inline = [
-#      "bash osa-playbooks.sh > osa-playbooks.out",
-#    ]
-#  }
+  provisioner "remote-exec" {
+    inline = [
+      "bash osa-playbooks.sh > osa-playbooks.out",
+    ]
+  }
 }
