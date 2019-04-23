@@ -24,6 +24,14 @@ output "Infra/Control public IPs" {
   value = "${packet_device.control.*.access_public_ipv4}"
 }
 
-output "SSH Access to run OpenStack-Ansible Playbooks"  {
+output "SSH Access to infra0"  {
   value = "ssh root@${packet_device.control.0.access_public_ipv4} -i default.pem"
+}
+
+output "SSH Access to compute0"  {
+  value = "ssh root@${packet_device.compute.0.access_public_ipv4} -i default.pem"
+}
+
+output "Project ID" {
+  value ="${ packet_project.osa.id}"
 }
