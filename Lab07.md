@@ -1,4 +1,4 @@
-# Lab 07 - Galera cluster maintenance�
+# Lab 07 - Galera cluster maintenance
 
 ## Goal
 
