@@ -6,7 +6,6 @@ These steps walk through setting up an individual lab environment. You'll need [
 
 On your workstation, clone this repo.
 
-<<<<<<< HEAD
 ```
 git clone git@github.com:OpenStackSanDiego/osa-workshop.git
 ```
@@ -29,7 +28,7 @@ echo packet_auth_token=\"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456\" >> terraform.tfvars
 This TF creates a new project for this cloud. If you're running multiple labs make sure to give each project a different name. These projects are visible on the Packet GUI.
 
 ```
-eho project_name = \"OSA-lab-1\" >> terraform.tfvars
+echo project_name = \"OSA-lab-1\" >> terraform.tfvars
 ```
 
 ### Execute Terraform

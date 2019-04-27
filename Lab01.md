@@ -33,14 +33,17 @@ terraform output
 ```
 
 ```
-Cloud ID Tag = dabbc227
+Cloud ID Tag = 78c60203
 Compute public IPs = [
-    27.75.192.173
+    27.75.192.67
 ]
 Infra/Control public IPs = [
-    27.75.67.197
+    27.75.192.153
 ]
-SSH Access to run OpenStack-Ansible Playbooks = ssh root@27.75.67.197 -i default.pem
+Project ID = 2c2fb812-5add-4221-a14e-7ad10805be4c
+SSH Access to compute0 = ssh root@27.75.192.67 -i default.pem
+SSH Access to infra0 = ssh root@27.75.192.153 -i default.pem
+
 ```
 
 And let's do a quick network connectivity check to each host.
