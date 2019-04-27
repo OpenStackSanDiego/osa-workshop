@@ -25,10 +25,14 @@ resource "null_resource" "lab-users" {
     timeout     = "30s"
   }
 
-  # create-workspaces.sh BGP-Password Packet-Auth-Token Packet-Project-ID Number-Workspaces-To-Create" >&2
   provisioner "file" {
     source      = "create-workspaces.sh"
     destination = "create-workspaces.sh"
+  }
+
+  provisioner "file" {
+    source      = "delete-workspaces.sh"
+    destination = "delete-workspaces.sh"
   }
 
   provisioner "remote-exec" {
