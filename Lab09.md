@@ -49,7 +49,7 @@ root@infra0:/opt/openstack-ansible/playbooks# openstack-ansible healthcheck-infr
 
 ## Next Steps
 
-Once you feel comfortable examing the log files, proceed to [Lab 10](Lab10.md)
+Once you feel comfortable with the playbooks, proceed to [Lab 10](Lab10.md)
 
 (C) JHL Consulting LLC 2019
 
