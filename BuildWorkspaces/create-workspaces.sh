@@ -53,6 +53,7 @@ do
   sudo chown $USER.sudo terraform.tfstate
   sudo -u $USER terraform init
   screen -dmS $USER-terraform-apply terraform apply -auto-approve
+  sleep 600
   popd
 done
 
