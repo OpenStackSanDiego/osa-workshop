@@ -25,7 +25,6 @@ if [ -z "$PACKET_FACILITY" ] ; then
   exit 1
 fi
 
-exit 0
 echo PACKET_AUTH_TOKEN=$PACKET_AUTH_TOKEN
 echo PACKET_FACILITY=$PACKET_FACILITY
 
