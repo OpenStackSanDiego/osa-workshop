@@ -35,7 +35,7 @@ variable "packet_facility" {
 
 variable "instance_type" {
   description = "Instance type"
-  default = "c1.small.x86"
+  default = "t1.small.x86"
 }
 
 variable "operating_system" {
