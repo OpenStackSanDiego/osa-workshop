@@ -38,7 +38,7 @@ The Cirros image is small and quick to deploy making it ideal for testing.
 
 ```
 wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
-os image create --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public cirros
+openstack image create --file cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public cirros
 rm cirros-0.4.0-x86_64-disk.img
 openstack flavor create --ram 512  --disk 1   --vcpus 1 m1.tiny
 ```
