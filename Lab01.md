@@ -12,6 +12,30 @@ Take note of the name of the "lab master" server on the whiteboard/projector. Th
 
 If you ever need a new lab environment, return to this page and simply assign yourself a new one. Mark any old/broken lab environments as "broken/recycle" and it will be rebuilt.
 
+## Lab Layout
+
+Each student has been assigned a set of two physical, bare metal servers (infra0 and compute0) with OpenStack Ansible already installed. These machines are accessible via the lab master (jump server). Log into the lab master using your assigned credential and password. You can then log into infra0 and compute0 using the key (terraform/default.pem).
+
+                                     +--------------------+
+                                     |                    |
+                                     |                    |
++----------------------+   SSH       |                 +--v-------------------+
+|                      +-------------+                 | infra0 server        <----------- Horizon GUI (public IP)
+| Lab Master           |                               | login: root          |
+| Terraform            |                               | student dedicated    >----------- Egress networking via Neutron
+| shared by students   |                               | osa tools            <----------- OpenStack APIs (public IP)
+| login: osaXX         +---v                           | lxd containers       |
++----------------------+   |                           +-----^----------------+
+                           |                                 | bridged networks (br-mgmt, br-vxlan)
+                           |                           +-----v----------------+
+                           |                           |                      |
+                           |                           | compute0             |
+                           |                           | login: root          |
+                           +-------------------------->+ student dedicated    |
+                                    SSH                |                      |
+                                                       +----------------------+
+                                                       
+                                                       
 ## Lab Master Access
 
 With your assigned lab username (i.e. osa03), log into the lab master server using the your assigned lab and the password. You'll need to use a SSH client (i.e. PuTTy). 
