@@ -34,6 +34,22 @@ All of the Galera instances within the cluster can be verified with the followin
 ```
 root@infra0:~# ansible galera_container -m shell -a "mysql -h 127.0.0.1 -e 'show status like \"%wsrep_cluster_%\";'"
 ```
+alternatively, you can inspect the lxc container directly:
+
+```
+root@infra0:~# lxc-attach  infra0_galera_container-#######
+
+root@infra0-galera-container-53af11c4:~# mysql -h 127.0.0.1 -e 'show status like "%wsrep_cluster_%";' 
++--------------------------+--------------------------------------+
+| Variable_name            | Value                                |
++--------------------------+--------------------------------------+
+| wsrep_cluster_conf_id    | 1                                    |
+| wsrep_cluster_size       | 1                                    |
+| wsrep_cluster_state_uuid | 7b663ae7-69d4-11e9-a963-e630c933d533 |
+| wsrep_cluster_status     | Primary                              |
++--------------------------+--------------------------------------+
+```
+
 
 ## Next Steps
 
