@@ -2,7 +2,12 @@
 
 ## Prerequisites
 
-* Laptop with SSH client (PuTTy). The Windows client can be downloaded [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
+* Laptop with SSH client (PuTTy). The Windows client can be downloaded [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). If you have PowerShell installed, launch powershell and then you should be able to just:
+
+```
+C:\ ssh <your_lab_username>@<lab_master_server>
+```
+
 
 ## Lab Assignment & Credentials
 
