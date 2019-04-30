@@ -38,7 +38,7 @@ Each student has been assigned a set of two physical, bare metal servers (infra0
                                                        
 ## Lab Master Access
 
-With your assigned lab username (i.e. osa03), log into the lab master server using the your assigned lab and the password. You'll need to use a SSH client (i.e. PuTTy). 
+With your assigned lab username (i.e. osa03), log into the lab master server using the your assigned lab and the password. You'll need to use a SSH client (i.e. PuTTy or enter PowerShell and use the following...)
 
 ```
 ssh <your_lab_username>@<lab_master_server>
